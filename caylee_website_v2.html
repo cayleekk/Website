@@ -1,0 +1,338 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pink:#F4C0D1;--pink-deep:#D4537E;--pink-light:#FBEAF0;
+  --yellow:#FFF9E3;--yellow-mid:#FAC775;--yellow-text:#633806;
+  --white:#ffffff;--text:#4B1528;--muted:#72243E;
+  --border:#ED93B1;--surface:#fff0f5;--radius:14px;
+}
+body{background:transparent;font-family:Georgia,serif;}
+.site{background:var(--white);border-radius:16px;border:1.5px solid var(--border);overflow:hidden;}
+.topnav{background:var(--pink-light);border-bottom:1.5px solid var(--border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.logo{font-size:16px;font-weight:500;color:var(--pink-deep);}
+.nav-tabs{display:flex;gap:4px;flex-wrap:wrap;}
+.nav-tab{padding:5px 11px;border-radius:50px;font-size:11px;cursor:pointer;border:1.5px solid transparent;color:var(--muted);font-family:Georgia,serif;background:transparent;transition:all .2s;}
+.nav-tab.active{background:var(--pink-deep);color:#fff;border-color:var(--pink-deep);}
+.nav-tab:hover:not(.active){background:var(--pink);color:var(--text);border-color:var(--border);}
+.page{display:none;}.page.active{display:block;}
+.hero-wrap{background:var(--yellow);padding:32px 24px 24px;text-align:center;border-bottom:1.5px solid var(--border);}
+.avatar-ring{width:76px;height:76px;border-radius:50%;background:var(--pink);border:3px solid var(--pink-deep);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:30px;color:var(--pink-deep);}
+.hero-name{font-size:23px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.hero-sub{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:14px;}
+.hero-pills{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
+.pill{padding:4px 13px;border-radius:50px;font-size:11px;font-weight:500;}
+.pill-pink{background:var(--pink);color:#72243E;}.pill-yellow{background:var(--yellow-mid);color:var(--yellow-text);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 18px;background:var(--white);}
+.stat-card{background:var(--yellow);border:1px solid var(--yellow-mid);border-radius:var(--radius);padding:10px;text-align:center;}
+.stat-num{font-size:20px;font-weight:500;color:var(--text);}.stat-label{font-size:10px;color:var(--muted);margin-top:2px;}
+.section-wrap{padding:14px 18px 22px;}
+.section-title{font-size:15px;color:var(--text);margin-bottom:10px;padding-bottom:7px;border-bottom:1.5px solid var(--border);font-weight:500;}
+.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.info-card{background:var(--pink-light);border:1px solid var(--border);border-radius:var(--radius);padding:12px;cursor:pointer;transition:border-color .2s;}
+.info-card:hover{border-color:var(--pink-deep);}
+.info-card h3{font-size:12px;color:var(--text);margin-bottom:3px;}
+.info-card p{font-size:11px;color:var(--muted);line-height:1.5;}
+footer{background:var(--pink-light);border-top:1.5px solid var(--border);text-align:center;padding:9px;font-size:10px;color:var(--muted);}
+.about-bio{background:var(--yellow);border:1px solid var(--yellow-mid);border-radius:var(--radius);padding:14px;margin-bottom:12px;}
+.about-bio p{font-size:12px;color:var(--text);line-height:1.8;}
+.about-bio strong{color:var(--pink-deep);}
+.tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.tag{padding:4px 11px;border-radius:50px;font-size:11px;}
+.tag-pink{background:var(--pink);color:#72243E;border:1px solid var(--border);}
+.tag-yellow{background:var(--yellow-mid);color:var(--yellow-text);}
+.skills-list{display:flex;flex-direction:column;gap:7px;}
+.sk-row{display:flex;align-items:center;gap:8px;}
+.sk-name{font-size:11px;color:var(--text);width:120px;flex-shrink:0;}
+.sk-bar{flex:1;height:7px;background:var(--pink-light);border-radius:10px;border:1px solid var(--border);overflow:hidden;}
+.sk-fill{height:100%;background:var(--pink-deep);border-radius:10px;}
+.vol-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;}
+.vol-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.vol-org{font-size:13px;font-weight:500;color:var(--text);}
+.vol-date{font-size:10px;color:var(--pink-deep);background:var(--pink-light);padding:3px 9px;border-radius:50px;border:1px solid var(--border);}
+.vol-loc{font-size:11px;color:var(--muted);margin-bottom:7px;}
+.vol-role{font-size:11px;font-weight:500;color:var(--pink-deep);margin-bottom:6px;}
+.vol-bullets{padding-left:14px;}
+.vol-bullets li{font-size:11px;color:var(--muted);margin-bottom:3px;line-height:1.5;}
+.quiz-intro{background:var(--yellow);border:1px solid var(--yellow-mid);border-radius:var(--radius);padding:12px;margin-bottom:12px;font-size:12px;color:var(--text);text-align:center;}
+.quiz-q{font-size:13px;color:var(--text);margin-bottom:9px;font-weight:500;}
+.quiz-opts{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.quiz-opt{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:8px 13px;font-size:12px;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;font-family:Georgia,serif;}
+.quiz-opt:hover{background:var(--pink-light);border-color:var(--pink-deep);}
+.quiz-opt.correct{background:#EAF3DE;border-color:#639922;color:#27500A;}
+.quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D;}
+.quiz-feedback{font-size:11px;min-height:16px;margin-bottom:7px;color:var(--muted);}
+.quiz-prog{display:flex;gap:4px;margin-bottom:12px;}
+.prog-dot{width:10px;height:10px;border-radius:50%;background:var(--border);}
+.prog-dot.done{background:var(--pink-deep);}
+.quiz-score{background:var(--pink);border:1.5px solid var(--pink-deep);border-radius:var(--radius);padding:16px;text-align:center;}
+.quiz-score h2{font-size:18px;color:var(--text);margin-bottom:5px;}
+.quiz-score p{font-size:12px;color:var(--muted);}
+.quiz-btn{margin-top:9px;padding:7px 18px;border-radius:50px;background:var(--pink-deep);color:#fff;border:none;font-size:12px;cursor:pointer;font-family:Georgia,serif;}
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:12px;padding-bottom:12px;}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;}
+.tl-dot{width:13px;height:13px;border-radius:50%;background:var(--pink-deep);border:2px solid var(--pink);flex-shrink:0;}
+.tl-line{flex:1;width:2px;background:var(--border);}
+.tl-body{background:var(--yellow);border:1px solid var(--yellow-mid);border-radius:var(--radius);padding:9px 13px;flex:1;}
+.tl-year{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.tl-title{font-size:13px;color:var(--text);font-weight:500;}
+.tl-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.contact-row{display:flex;align-items:center;gap:10px;background:var(--pink-light);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;margin-bottom:9px;}
+.contact-icon{color:var(--pink-deep);font-size:18px;flex-shrink:0;}
+.contact-label{font-size:10px;color:var(--muted);}
+.contact-val{font-size:12px;color:var(--text);font-weight:500;}
+</style>
+
+<h2 class="sr-only">Caylee Cumberbatch-Carter — updated interactive personal website with volunteer experience, sports, and interests.</h2>
+
+<div class="site">
+  <div class="topnav">
+    <div class="logo">Caylee Cumberbatch-Carter</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="go('home',this)">Home</button>
+      <button class="nav-tab" onclick="go('about',this)">About</button>
+      <button class="nav-tab" onclick="go('experience',this)">Experience</button>
+      <button class="nav-tab" onclick="go('quiz',this)">Quiz me!</button>
+      <button class="nav-tab" onclick="go('journey',this)">Journey</button>
+      <button class="nav-tab" onclick="go('contact',this)">Contact</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="page active" id="p-home">
+    <div class="hero-wrap">
+      <div class="avatar-ring"><i class="ti ti-user" style="font-size:30px;" aria-hidden="true"></i></div>
+      <div class="hero-name">Caylee Cumberbatch-Carter</div>
+      <div class="hero-sub">Sophomore · Class of 2028 · Boston, MA</div>
+      <div class="hero-pills">
+        <span class="pill pill-pink">GPA 3.7</span>
+        <span class="pill pill-yellow">Class of 2028</span>
+        <span class="pill pill-pink">Age 16</span>
+        <span class="pill pill-yellow">Track athlete</span>
+        <span class="pill pill-pink">Loves working with children</span>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">3.7</div><div class="stat-label">GPA</div></div>
+      <div class="stat-card"><div class="stat-num">10th</div><div class="stat-label">Grade</div></div>
+      <div class="stat-card"><div class="stat-num">2028</div><div class="stat-label">Graduating</div></div>
+      <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Volunteer roles</div></div>
+    </div>
+    <div class="section-wrap">
+      <div class="section-title">Welcome to my site</div>
+      <div class="cards-grid">
+        <div class="info-card" onclick="go('about',document.querySelectorAll('.nav-tab')[1])">
+          <h3><i class="ti ti-user" style="font-size:13px;margin-right:4px;" aria-hidden="true"></i>About me</h3>
+          <p>Who I am, my interests, hobbies, and what drives me every day.</p>
+        </div>
+        <div class="info-card" onclick="go('experience',document.querySelectorAll('.nav-tab')[2])">
+          <h3><i class="ti ti-briefcase" style="font-size:13px;margin-right:4px;" aria-hidden="true"></i>Experience</h3>
+          <p>My volunteer work at MSPCA and Mass General Brigham.</p>
+        </div>
+        <div class="info-card" onclick="go('quiz',document.querySelectorAll('.nav-tab')[3])">
+          <h3><i class="ti ti-bulb" style="font-size:13px;margin-right:4px;" aria-hidden="true"></i>Quiz me!</h3>
+          <p>Think you know me? Take a fun interactive quiz and find out!</p>
+        </div>
+        <div class="info-card" onclick="go('contact',document.querySelectorAll('.nav-tab')[5])">
+          <h3><i class="ti ti-mail" style="font-size:13px;margin-right:4px;" aria-hidden="true"></i>Contact</h3>
+          <p>Reach out — I'd love to connect.</p>
+        </div>
+      </div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="p-about">
+    <div class="section-wrap">
+      <div class="section-title">About me</div>
+      <div class="about-bio">
+        <p>Hi! I'm <strong>Caylee Cumberbatch-Carter</strong>, a <strong>16-year-old sophomore</strong> in high school and a proud member of the <strong>Class of 2028</strong>. I hold a <strong>3.7 GPA</strong> and I'm committed to growing both academically and as a person.</p>
+        <p style="margin-top:8px;">I love <strong>working with children</strong> and find it incredibly rewarding to make a difference in their lives. On the athletic side, I run <strong>track</strong> and enjoy the discipline and energy that comes with being part of a team. When I'm not on the track or out in the community, I enjoy <strong>studying</strong> — yes, I genuinely like learning!</p>
+        <p style="margin-top:8px;">My volunteer experience at the <strong>MSPCA</strong> and <strong>Mass General Brigham</strong> has shaped who I am and showed me the value of showing up for others.</p>
+        <div class="tags-row">
+          <span class="tag tag-pink">Working with children</span>
+          <span class="tag tag-yellow">Track & field</span>
+          <span class="tag tag-pink">Studying</span>
+          <span class="tag tag-yellow">Animal care</span>
+          <span class="tag tag-pink">Healthcare</span>
+          <span class="tag tag-yellow">Community service</span>
+          <span class="tag tag-pink">Goal-oriented</span>
+        </div>
+      </div>
+      <div class="section-title" style="margin-top:6px;">My skills</div>
+      <div class="skills-list">
+        <div class="sk-row"><span class="sk-name">Academic focus</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">Working with children</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">Athleticism</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">Communication</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">Compassion & care</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">HTML & CSS</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+        <div class="sk-row"><span class="sk-name">Leadership</span><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><span style="font-size:11px;color:var(--muted);margin-left:6px;">100%</span></div>
+      </div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="page" id="p-experience">
+    <div class="section-wrap">
+      <div class="section-title">Volunteer experience</div>
+
+      <div class="vol-card">
+        <div class="vol-header">
+          <div class="vol-org">MSPCA Humane Education</div>
+          <div class="vol-date">May 2024 – June 2024</div>
+        </div>
+        <div class="vol-loc"><i class="ti ti-map-pin" style="font-size:12px;margin-right:3px;" aria-hidden="true"></i>Boston, MA</div>
+        <div class="vol-role">Volunteer &amp; Student</div>
+        <ul class="vol-bullets">
+          <li>Attended the program for several weeks, dedicating 5 hours a day to hands-on animal care.</li>
+          <li>Cared for bunnies and other animals while closely following the guidance of program providers.</li>
+          <li>Built connections within a welcoming community and expanded knowledge of caring for various animals.</li>
+        </ul>
+      </div>
+
+      <div class="vol-card">
+        <div class="vol-header">
+          <div class="vol-org">Mass General Brigham</div>
+          <div class="vol-date">July 2025 – August 2025</div>
+        </div>
+        <div class="vol-loc"><i class="ti ti-map-pin" style="font-size:12px;margin-right:3px;" aria-hidden="true"></i>Boston, MA</div>
+        <div class="vol-role">Volunteer</div>
+        <ul class="vol-bullets">
+          <li>Gained firsthand experience in a hospital setting, observing and supporting medical professionals.</li>
+          <li>Assisted doctors in a clinical environment, demonstrating strong time management and efficiency.</li>
+          <li>Recognized by staff for being an excellent volunteer throughout the program.</li>
+          <li>Greeted and assisted patients, and had the opportunity to observe doctors in practice across multiple departments.</li>
+        </ul>
+      </div>
+
+      <div class="about-bio" style="margin-top:4px;">
+        <p style="text-align:center;font-size:12px;color:var(--text);">These experiences confirmed my passion for <strong>healthcare, community service, and working with people</strong> — and I'm excited to keep building on them.</p>
+      </div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="page" id="p-quiz">
+    <div class="section-wrap">
+      <div class="section-title">How well do you know Caylee?</div>
+      <div class="quiz-intro">Answer all 6 questions and see your score!</div>
+      <div id="quiz-body"></div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="page" id="p-journey">
+    <div class="section-wrap">
+      <div class="section-title">My journey</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body"><div class="tl-year">2022 – 2024</div><div class="tl-title">Middle school</div><div class="tl-desc">Built a strong academic foundation and discovered a love for learning, community, and athletics.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body"><div class="tl-year">May – June 2024</div><div class="tl-title">MSPCA volunteer</div><div class="tl-desc">Spent weeks caring for animals and learning about humane education in Boston — 5 hours a day of meaningful work.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body"><div class="tl-year">2024 – present</div><div class="tl-title">Freshman &amp; Sophomore years</div><div class="tl-desc">Achieved a 3.7 GPA, joined track, started coding, and built this website. Growing every single semester.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body"><div class="tl-year">July – August 2025</div><div class="tl-title">Mass General Brigham volunteer</div><div class="tl-desc">Worked alongside doctors in a hospital setting — recognized as an excellent volunteer and gained real healthcare exposure.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body"><div class="tl-year">2026 – 2027</div><div class="tl-title">Junior year</div><div class="tl-desc">Planning to take on more advanced courses, pursue additional opportunities, and continue giving back to my community.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot" style="background:var(--yellow-mid);border-color:var(--yellow-text);"></div></div>
+          <div class="tl-body" style="background:var(--pink-light);border-color:var(--border);"><div class="tl-year">2028</div><div class="tl-title">Graduation — Class of 2028!</div><div class="tl-desc">The next big chapter. College, career, and everything beyond — the story is still being written.</div></div>
+        </div>
+      </div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="p-contact">
+    <div class="section-wrap">
+      <div class="section-title">Get in touch</div>
+      <div class="contact-row">
+        <i class="ti ti-mail contact-icon" aria-hidden="true"></i>
+        <div><div class="contact-label">School email</div><div class="contact-val">caylee.cumberbatch-carter@ebrooke.org</div></div>
+      </div>
+      <div class="contact-row">
+        <i class="ti ti-brand-github contact-icon" aria-hidden="true"></i>
+        <div><div class="contact-label">GitHub</div><div class="contact-val">github.com/yourhandle</div></div>
+      </div>
+      <div class="contact-row">
+        <i class="ti ti-run contact-icon" aria-hidden="true"></i>
+        <div><div class="contact-label">Sport</div><div class="contact-val">Track &amp; field</div></div>
+      </div>
+      <div class="contact-row">
+        <i class="ti ti-heart contact-icon" aria-hidden="true"></i>
+        <div><div class="contact-label">Passion</div><div class="contact-val">Working with children &amp; community service</div></div>
+      </div>
+      <div class="about-bio" style="margin-top:4px;text-align:center;">
+        <p>I'm always open to connecting, collaborating, or just chatting. Don't hesitate to reach out!</p>
+        <div class="tags-row" style="justify-content:center;margin-top:8px;">
+          <span class="tag tag-pink">Open to opportunities</span>
+          <span class="tag tag-yellow">Friendly &amp; approachable</span>
+          <span class="tag tag-pink">Boston, MA</span>
+        </div>
+      </div>
+    </div>
+    <footer>Made with love by Caylee Cumberbatch-Carter · Class of 2028</footer>
+  </div>
+</div>
+
+<script>
+const questions=[
+  {q:"What is Caylee's GPA?",opts:["3.4","3.5","3.6","3.7"],ans:3,exp:"Caylee has a 3.7 GPA — she works hard for it!"},
+  {q:"What sport does Caylee play?",opts:["Basketball","Soccer","Track","Swimming"],ans:2,exp:"Caylee runs track!"},
+  {q:"Where did Caylee volunteer in summer 2025?",opts:["Boston Children's Hospital","Mass General Brigham","MSPCA","Red Cross"],ans:1,exp:"Caylee volunteered at Mass General Brigham, July–August 2025."},
+  {q:"What does Caylee love working with?",opts:["Animals","Children","Technology","Plants"],ans:1,exp:"Caylee is passionate about working with children!"},
+  {q:"What animal did Caylee help care for at the MSPCA?",opts:["Cats","Dogs","Bunnies","Birds"],ans:2,exp:"Caylee helped care for bunnies at the MSPCA Humane Education program!"},
+  {q:"What year does Caylee graduate?",opts:["2026","2027","2028","2029"],ans:2,exp:"Caylee is Class of 2028!"}
+];
+let cur=0,score=0,answered=false;
+function renderQuiz(){
+  const el=document.getElementById('quiz-body');
+  if(cur>=questions.length){
+    const pct=Math.round((score/questions.length)*100);
+    let msg=pct===100?"Perfect! You really know Caylee!":pct>=66?"Nice work — you know her pretty well!":"Time to learn more about Caylee!";
+    el.innerHTML=`<div class="quiz-score"><h2>${score} / ${questions.length}</h2><p style="font-size:16px;font-weight:500;color:var(--pink-deep);">${pct}%</p><p>${msg}</p><button class="quiz-btn" onclick="resetQuiz()">Play again</button></div>`;
+    return;
+  }
+  const q=questions[cur];
+  const dots=questions.map((_,i)=>`<div class="prog-dot${i<cur?' done':''}"></div>`).join('');
+  el.innerHTML=`<div class="quiz-prog">${dots}</div><div class="quiz-q">Question ${cur+1} of ${questions.length}: ${q.q}</div><div class="quiz-opts">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="pick(${i})">${o}</button>`).join('')}</div><div class="quiz-feedback" id="qfb"></div>`;
+  answered=false;
+}
+function pick(i){
+  if(answered)return;
+  answered=true;
+  const q=questions[cur];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach((b,idx)=>{if(idx===q.ans)b.classList.add('correct');else if(idx===i&&i!==q.ans)b.classList.add('wrong');});
+  if(i===q.ans)score++;
+  document.getElementById('qfb').textContent=q.exp;
+  setTimeout(()=>{cur++;renderQuiz();},1500);
+}
+function resetQuiz(){cur=0;score=0;answered=false;renderQuiz();}
+function go(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='quiz')renderQuiz();
+}
+renderQuiz();
+</script>
